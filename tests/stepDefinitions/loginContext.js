@@ -1,25 +1,35 @@
-const {Given, When, Then} = require('@cucumber/cucumber')
-// import expect for assertion
+const { Given, When, Then } = require('@cucumber/cucumber')
 const { expect } = require("@playwright/test");
 
-Given('the user has navigated to the login page', function () {
-  // Write code here that turns the phrase above into concrete actions
-  console.log(" Given from background");
-  
+
+// for valid scenario
+Given('user {string} has navigated to the admin login page', function (string) {
+  console.log(" Given ");
 });
 
-When('the admin logs in the email {string} and password {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  console.log(" When block ");
+When('user {string} logs in with following credentials', function (string, dataTable) {
+  console.log(" When ");
+  for (const { email, password } of dataTable.hashes()) {
+    console.log(email, password)
+  }
+
 });
 
-Then('admin should be displayed homepage', function () {
-  // Write code here that turns the phrase above into concrete actions
-  console.log(" Then block from scenario 1");
+Then('user {string} should be navigated to admin panel dashboard', function (string) {
+  console.log(" Then")
 });
 
-Then('error message {string} should be shown', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  console.log(" Then block from scenario 2");
+
+// For invalid scenarios
+
+When('the user tries to log in with following credentials', function (dataTable) {
+  for (const { email, password } of dataTable.hashes()) {
+    console.log(email, password)
+  }
+});
+
+
+Then('error message {string} should be shown', function (errorMessage) {
+  console.log(errorMessage)
 
 });
