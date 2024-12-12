@@ -35,7 +35,10 @@
 /config/master.key
 
 #ignoring node modules
-/node_modules/
+node_modules/
 
 #ignore .idea
-/.idea/
+.idea/
+
+#ignore package-log.json
+/package-lock.json
