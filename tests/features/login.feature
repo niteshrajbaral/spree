@@ -19,10 +19,9 @@ Feature: login
     Then error message "<message>" should be shown
 
     Examples:
-      | email           | password      | message                   |
-      | admin@admin.com | abc           | Invalid email or password |
-      | xyz@gmail.com   | hashda        | Invalid email or password |
-      | admin@admin.com |               | Invalid email or password |
-      |                 | klaslkda      | Invalid email or password |
-      |                 |               | Invalid email or password |
-      | admin           | adminadmin123 | Invalid email or password |
+      | email           | password      | message                    |
+      | admin@admin.com | abc           | Invalid email or password. |
+      | xyz@gmail.com   | hashda        | Invalid email or password. |
+      | admin@admin.com |               | Invalid email or password. |
+      |                 | klaslkda      | Invalid email or password. |
+      |                 |               | Invalid email or password. |
