@@ -1,35 +1,31 @@
 const { Given, When, Then } = require('@cucumber/cucumber')
 const { expect } = require("@playwright/test");
+const { LoginPage } = require("../pageObjects/LoginPage");
+const loginPage = new LoginPage();
 
-
-// for valid scenario
-Given('user {string} has navigated to the admin login page', function (string) {
-  console.log(" Given ");
+Given('user {string} has navigated to the admin login page', async function (user) {
+  await loginPage.navigateToAdminLoginPage()
+  await expect(page).toHaveURL("http://127.0.0.1:3000/admin/login")
 });
 
-When('user {string} logs in with following credentials', function (string, dataTable) {
-  console.log(" When ");
-  for (const { email, password } of dataTable.hashes()) {
-    console.log(email, password)
-  }
-
-});
-
-Then('user {string} should be navigated to admin panel dashboard', function (string) {
-  console.log(" Then")
-});
-
-
-// For invalid scenarios
-
-When('the user tries to log in with following credentials', function (dataTable) {
-  for (const { email, password } of dataTable.hashes()) {
-    console.log(email, password)
+When('user {string} logs in with following credentials',async function (user, credentials) {
+  for (const { email, password } of credentials.hashes()) {
+    await loginPage.login(email,password)
   }
 });
 
+Then('user {string} should be navigated to admin panel dashboard', async function (user) {
+  await page.waitForURL("http://127.0.0.1:3000/", { timeout: 5000 });
+  await expect(page).toHaveURL("http://127.0.0.1:3000/")
+  await expect(page.locator(loginPage.dashboardSelector)).toBeVisible();
+});
 
-Then('error message {string} should be shown', function (errorMessage) {
-  console.log(errorMessage)
+When('the user tries to log in with following credentials',async function (credentials) {
+  for (const { email, password } of credentials.hashes()) {
+    await loginPage.login(email,password)
+  }
+});
 
+Then('error message {string} should be shown',async function (errorMessage) {
+  await expect(page.locator(loginPage.errorMessageSelector)).toHaveText(errorMessage);
 });
