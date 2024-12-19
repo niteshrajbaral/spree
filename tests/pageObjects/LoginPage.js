@@ -1,10 +1,10 @@
 class LoginPage{
-    constructor(){
-        this.emailFieldSelector = "#spree_user_email"
-        this.loginBtnSelector = ".btn.btn-block.btn-primary"
-        this.passwordFieldSelector = "#spree_user_password"
-        this.dashboardSelector = "//div[@id='missingHomepage']//h1"
-        this.errorMessageSelector = ".alert-danger"
+    constructor() {
+        this.emailFieldSelector = "#spree_user_email";
+        this.loginBtnSelector = ".btn.btn-block.btn-primary";
+        this.passwordFieldSelector = "#spree_user_password";
+        this.dashboardSelector = "//div[@id='missingHomepage']//h1";
+        this.errorMessageSelector = ".alert-danger";
     }
 
     async navigateToAdminLoginPage() {
