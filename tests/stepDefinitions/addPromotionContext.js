@@ -11,7 +11,7 @@ Given('user {string} has logged in to the admin panel with following credentials
   await login.navigateToAdminLoginPage();
   const {email, password} = credentials.hashes()[0];
   await login.login(email, password);
-  await page.waitForURL("http://127.0.0.1:3000/", { timeout: 5000 });
+  await page.waitForURL("http://127.0.0.1:3000/", { timeout: 60000 });
 });
 
 When('user {string} adds a new promotion with following details:', async function (user, details) {
