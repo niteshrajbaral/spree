@@ -1,0 +1,51 @@
+name: Project setup 
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: 
+      - main
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+
+    - name: Install Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3.0' 
+         
+    - name: Install Ruby dependencies
+      run: |
+        gem install bundler
+        bundle install
+
+    - name: Setup application
+      run: |
+        sudo apt-get install -y expect
+        ./ci-setup.sh
+
+    - name: Run server
+      run: bin/rails s &
+
+    - name: Wait for development server
+      run: |
+          sudo apt-get install wait-for-it -y
+          wait-for-it -h localhost -p 3000 -t 10
+
+    - name: Run e2e tests
+      run: |
+        npm install
+        npx playwright install chromium
+        npm run test:e2e tests/features/

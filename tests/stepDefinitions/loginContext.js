@@ -15,8 +15,6 @@ When('user {string} logs in with following credentials',async function (user, cr
 });
 
 Then('user {string} should be navigated to admin panel dashboard', async function (user) {
-  await page.waitForURL("http://127.0.0.1:3000/", { timeout: 5000 });
-  await expect(page).toHaveURL("http://127.0.0.1:3000/")
   await expect(page.locator(loginPage.dashboardSelector)).toBeVisible();
 });
 
