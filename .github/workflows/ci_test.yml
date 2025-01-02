@@ -1,0 +1,28 @@
+name: Hello world for CI test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: 
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install node required 
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+    
+    - name: Install dependencies
+      run: npm install
+
+    - name: Print a message
+      run: echo "Hello, GitHub Actions!"
