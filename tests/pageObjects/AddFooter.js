@@ -8,7 +8,15 @@ class AddFooter{
         this.footerAddressSelector = "//textarea[@id='store_address']";
         this.footerContactPhSelector = "//input[@id='store_contact_phone']";
         this.updateBtnSelector = "//button[@type='submit']";
-        this.checkFooterDescSelector = "//div[contains(@class,'footer-spree-info')]"
+        this.checkFooterDescSelector = "//div[contains(@class,'footer-spree-info')]";
+        this.checkAddressSelector = "(//div[contains(@class, 'footer-spree-contact-note')])/div[1]";
+        this.checkContactNoSelector = "(//div[contains(@class, 'footer-spree-contact-note')])/div[2]";
+    }
+    async cleanupFields(){
+        await page.fill(this.footerDescSelector, '');
+        await page.fill(this.footerAddressSelector, '');
+        await page.fill(this.footerContactPhSelector, '');
+        await page.click(this.updateBtnSelector);
     }
 
     async navigateToFooterSection(){
@@ -18,7 +26,7 @@ class AddFooter{
         await page.click(this.storeTabSelector);
         
     }
-    
+
     async enterFooterDetails(description, address, phone){
         await page.fill(this.footerDescSelector, description);
         await page.fill(this.footerAddressSelector, address);
